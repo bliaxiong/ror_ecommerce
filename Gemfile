@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby "2.0.0"
+# ruby "2.0.0"
 
 ## Bundle rails:
 gem 'rails', '4.0.2'
@@ -13,14 +13,14 @@ gem "american_date"
 
 # Use https if you are pushing to HEROKU
 ##  NOTE: run the test before upgrading to the tagged version. It has had several deprecation warnings.
-gem 'authlogic', github: 'binarylogic/authlogic', ref: 'e4b2990d6282f3f7b50249b4f639631aef68b939'
+gem 'authlogic', github: 'binarylogic/authlogic' #, ref: 'e4b2990d6282f3f7b50249b4f639631aef68b939'
 #gem 'authlogic',          "~> 3.3.0"
 
 gem "asset_sync"
 gem 'awesome_nested_set', '~> 3.0.0.rc.1'
 
 gem 'aws-sdk'
-gem 'bluecloth',      '~> 2.2.0'
+gem 'bluecloth',      '~> 2.2.0', platform: :ruby
 gem 'cancan',         '~> 1.6.8'
 gem 'chronic'
 # Use https if you are pushing to HEROKU
@@ -43,8 +43,8 @@ gem 'prawn',        '~> 0.12.0'
 gem "rails3-generators", "~> 1.0.0"
 #git: "https://github.com/neocoin/rails3-generators.git"
 gem "rails_config"
-gem 'rmagick',    :require => 'RMagick'
-
+gem 'rmagick',    :require => 'RMagick', platform: :ruby
+gem 'rmagick4j', platform: :jruby
 gem 'rake', '~> 10.1'
 
 # gem 'resque', require: 'resque/server'
@@ -56,26 +56,30 @@ gem 'will_paginate', '~> 3.0.4'
 gem 'zurb-foundation', '~> 4.3.2'
 
 group :production do
-  gem 'mysql2', '~> 0.3.12'
-  gem 'pg'
+  gem 'mysql2', '~> 0.3.12', platform: :ruby
+  gem 'pg', platform: :ruby
+  gem 'activerecord-jdbcmysql-adapter', platform: :jruby
+  # gem 'activerecord-jdbcpostgres-adapter', platform: :jruby
   gem 'rails_12factor'
 end
 
 group :development do
-  gem 'sqlite3'
+  gem 'sqlite3', platform: :ruby
+  gem 'activerecord-jdbcsqlite3-adapter', platform: :jruby
   gem 'railroady'
   #gem 'awesome_print'
   #gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem "autotest-rails-pure"
-  gem "better_errors", '~> 0.9.0'
-  gem "binding_of_caller", '~> 0.7.2'
-  gem 'debugger'#, '~> 1.6.1'
+  gem "better_errors"
+  gem "binding_of_caller", '~> 0.7.2', platform: :ruby
+  gem 'debugger', platform: :ruby#, '~> 1.6.1'
   gem "rails-erd"
 
   # YARD AND REDCLOTH are for generating yardocs
   gem 'yard'
   gem 'RedCloth'
 end
+
 group :test, :development do
   gem 'capybara', "~> 1.1"#, :git => 'git://github.com/jnicklas/capybara.git'
   gem 'launchy'
