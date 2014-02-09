@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: products
@@ -199,7 +200,11 @@ class Product < ActiveRecord::Base
   private
 
     def create_content
-      self.description = BlueCloth.new(self.description_markup).to_html unless self.description_markup.blank?
+      if RUBY_PLATFORM == "java"
+        self.description = Kramdown::Document.new(self.description_markup).to_html unless self.description_markup.blank?
+      else
+        self.description = BlueCloth.new(self.description_markup).to_html unless self.description_markup.blank?
+      end
     end
 
     def not_active_on_create!
